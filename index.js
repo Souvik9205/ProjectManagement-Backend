@@ -13,6 +13,7 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -32,6 +33,6 @@ app.use("/", clientRouter);
 app.use("/", projectRouter);
 app.use("/project", taskRouter);
 
-app.listen(process.env.PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
