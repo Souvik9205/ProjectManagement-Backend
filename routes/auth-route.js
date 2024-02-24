@@ -1,17 +1,14 @@
 import express from "express";
 import jsonwebtoken from "jsonwebtoken";
-import bcrypt from "bcrypt";
 const clientRouter = express.Router();
 import Client from "../models/client.js";
 import dotenv from "dotenv";
-import jwtAuth from "../middleware/jwtMiddleware.js";
 dotenv.config();
 
 clientRouter.post("/signup", async (req, res) => {
   try {
     const { username, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newClient = new Client({ username, password: hashedPassword });
+    const newClient = new Client({ username, password });
     const result = await newClient.save();
 
     const token = jsonwebtoken.sign(
@@ -33,8 +30,7 @@ clientRouter.post("/login", async (req, res) => {
     if (!client) {
       return res.status(404).json({ message: "Client not found" });
     }
-    const match = await bcrypt.compare(password, client.password);
-    if (match) {
+    if (password === client.password) {
       const token = jsonwebtoken.sign(
         { id: client._id, username: client.username },
         process.env.TOKEN_KEY,
@@ -48,4 +44,5 @@ clientRouter.post("/login", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
 export default clientRouter;
