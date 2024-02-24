@@ -48,15 +48,4 @@ clientRouter.post("/login", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
-// clientRouter.get("/client", jwtAuth, async (req, res) => {
-//   try {
-//     const data = await Client.find();
-//     console.log("data fetched");
-//     res.status(200).json(data);
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
-
 export default clientRouter;
