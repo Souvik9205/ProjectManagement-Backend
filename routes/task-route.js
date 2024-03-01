@@ -97,5 +97,26 @@ taskRouter.delete("/:projectId/task/:taskId", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+router.put("/:projectId/task/:taskId/check", async (req, res) => {
+  try {
+    const projectId = req.params.projectId;
+    const taskId = req.params.taskId;
+    const { checked } = req.body;
+    const project = await Project.findById(projectId);
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+    const task = project.tasks.id(taskId);
+    if (!task) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+    task.checked = checked;
+    const updatedProject = await project.save();
+    console.log("Task checked status updated");
+    res.status(200).json(updatedProject);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 export default taskRouter;
