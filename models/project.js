@@ -5,6 +5,10 @@ const taskSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  checked: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const projectSchema = new mongoose.Schema({
