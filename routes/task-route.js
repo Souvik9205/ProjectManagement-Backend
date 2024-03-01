@@ -97,7 +97,7 @@ taskRouter.delete("/:projectId/task/:taskId", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-router.put("/:projectId/task/:taskId/check", async (req, res) => {
+taskRouter.put("/:projectId/task/:taskId/check", async (req, res) => {
   try {
     const projectId = req.params.projectId;
     const taskId = req.params.taskId;
