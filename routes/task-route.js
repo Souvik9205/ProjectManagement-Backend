@@ -106,7 +106,7 @@ taskRouter.put("/:projectId/task/:taskId/check", async (req, res) => {
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
-    const task = project.tasks.id(taskId);
+    const task = project.task.id(taskId);
     if (!task) {
       return res.status(404).json({ message: "Task not found" });
     }
