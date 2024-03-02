@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 // jwtAuth,
-app.get("/api/home", jwtAuth, async (req, res) => {
+app.get("/home", jwtAuth, async (req, res) => {
   try {
     const data = await Project.find();
     console.log("data fetched");
